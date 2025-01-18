@@ -206,7 +206,7 @@ def handle_message(event):
             if source_type == "group":
                 group_id = event.source.group_id
                 mes_user_id = event.source.user_id
-                line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"Group ID: {group_id},\r\nUser ID: {mes_user_id}" )]))
+                line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"Group ID: {group_id}\r\nUser ID: {mes_user_id}")]))
             elif source_type == "user":
                 mes_user_id = event.source.user_id
                 print(f"User ID: {mes_user_id}")
