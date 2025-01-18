@@ -211,15 +211,15 @@ def handle_message(event):
                 mes_user_id = event.source.user_id
                 print(f"User ID: {mes_user_id}")
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
-        elif re.search(r"吃.*麼|吃啥", event.message.text):
-            choose_food(event)
-        elif re.search(r"喝.*麼|喝啥", event.message.text):
-            choose_drink(event) 
-        elif '查詢' in event.message.text:
+        elif event.message.text == '查' or event.message.text == '查詢':
             user_message = event.message.text
             user_input_for_search = user_message.replace("查詢", "").strip()
             print(user_input_for_search)
             button_template(event,user_input_for_search) 
+        elif re.search(r"吃.*麼|吃啥", event.message.text):
+            choose_food(event)
+        elif re.search(r"喝.*麼|喝啥", event.message.text):
+            choose_drink(event) 
         elif '匯率' in event.message.text:
             search_exchange(event)
         else:
@@ -298,7 +298,7 @@ def button_template(event,user_input_for_search):
         user_input_for_search = urllib.parse.quote(user_input_for_search)
         buttons_template = ButtonsTemplate(
                 title='早午晚報',
-                thumbnail_image_url='https://i.imgur.com/ulUqtqN.jpeg',
+                thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
                 text='請選擇以下連結',
                 actions=[
                     URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
