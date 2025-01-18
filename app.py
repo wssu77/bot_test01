@@ -128,7 +128,7 @@ def health_check():
     now = datetime.now(timezone)
     target_hour = 10  # 指定小时
     print(now.hour)
-    
+    send_line_message()
     if now.hour == target_hour and 10<= now.minute <=19:
         send_line_message()
     return 'OK', 200
