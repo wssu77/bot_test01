@@ -297,19 +297,17 @@ def button_template(event,user_input_for_search):
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
         buttons_template = ButtonsTemplate(
-                title='查詢任意門',
-                thumbnail_image_url='https://i.imgur.com/nwFbufB.jpeg',
+                title='早午晚報',
+                thumbnail_image_url='https://i.imgur.com/ulUqtqN.jpeg',
                 text='請選擇以下連結',
                 actions=[
-                    MessageAction(label='說哈囉', text='Hello!'),
-                    URIAction(label='GOOGLE', uri=f'https://www.google.com/search?q={user_input_for_search}'),
-                    URIAction(label='維基', uri=f'https://zh.wikipedia.org/wiki/{user_input_for_search}'),
-                    URIAction(label='Google Maps', uri=f'https://www.google.com/maps/search/{user_input_for_search}')
+                    URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
+                    URIAction(label='公司外部連結', uri=f'http://60.251.107.160:8200/DayPartReport')
                     # 可以修改為自己想要的actions
                 ]
             )
         template_message = TemplateMessage(
-            alt_text='查詢任意門',
+            alt_text='早午晚報',
             template=buttons_template
         )
         try:
@@ -320,6 +318,37 @@ def button_template(event,user_input_for_search):
             ))
         except LineBotApiError as e:
             print(f"Error: {e}")
+
+
+# def button_template(event,user_input_for_search):
+#     with ApiClient(configuration) as api_client:
+#         line_bot_apiv3 = MessagingApi(api_client)
+#         user_input_for_search = urllib.parse.quote(user_input_for_search)
+#         buttons_template = ButtonsTemplate(
+#                 title='查詢任意門',
+#                 thumbnail_image_url='https://i.imgur.com/nwFbufB.jpeg',
+#                 text='請選擇以下連結',
+#                 actions=[
+#                     MessageAction(label='說哈囉', text='Hello!'),
+#                     URIAction(label='GOOGLE', uri=f'https://www.google.com/search?q={user_input_for_search}'),
+#                     URIAction(label='維基', uri=f'https://zh.wikipedia.org/wiki/{user_input_for_search}'),
+#                     URIAction(label='Google Maps', uri=f'https://www.google.com/maps/search/{user_input_for_search}')
+#                     # 可以修改為自己想要的actions
+#                 ]
+#             )
+#         template_message = TemplateMessage(
+#             alt_text='查詢任意門',
+#             template=buttons_template
+#         )
+#         try:
+#             # line_bot_api.reply_message('<REPLY_TOKEN>', template_message)
+#             line_bot_apiv3.reply_message(ReplyMessageRequest(
+#                 reply_token=event.reply_token,
+#                 messages=[template_message] # 加上關鍵字參數
+#             ))
+#         except LineBotApiError as e:
+#             print(f"Error: {e}")
+
 
 def send_line_message():    
     with ApiClient(configuration) as api_client:
