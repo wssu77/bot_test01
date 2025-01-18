@@ -222,7 +222,7 @@ def handle_message(event):
                                                         ReplyMessageRequest( 
                                                                             reply_token=event.reply_token, 
                                                                             messages=[TextMessage(
-                                                                                text=f"Group ID: {group_id},\n" + event.message.text
+                                                                                text=f"Group ID: {group_id},/n" + event.message.text
                                                                                 )]
                                                                             )
                                                         )
