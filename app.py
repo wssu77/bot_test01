@@ -126,10 +126,10 @@ def get_all_user_ids():
 def health_check():
     timezone = pytz.timezone('Asia/Taipei')
     now = datetime.now(timezone)
-    target_hour = 12  # 指定小时
+    target_hour = 13  # 指定小时
     print(now.hour)
     
-    if now.hour == target_hour and 00 == now.minute and 50 <= now.second <= 59:
+    if now.hour == target_hour and now.minute == 5 and 50 <= now.second <= 59:
         send_line_message()
     return 'OK', 200
 
