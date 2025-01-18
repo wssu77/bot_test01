@@ -292,15 +292,28 @@ def search_exchange(event):
                 )
             )
 
-def button_template(event,user_input_for_search):
+def button_template(event,user_input_for_search):        
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
+        
+        url = "http://10.227.58.88/DayPartReport/text.txt"
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            webtext = response.content.decode('utf-8')
+            print(webtext)
+        except requests.exceptions.RequestException as e:
+            print(f"無法讀取檔案：{e}")
+        except UnicodeDecodeError as e:
+            print(f"編碼解碼錯誤：{e}")
+            
         buttons_template = ButtonsTemplate(
                 title='早午晚報',
                 thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
                 text='請選擇以下連結',
                 actions=[
+                    MessageAction(label='中天-網站流量', text=webtext),
                     URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
                     URIAction(label='公司外部連結', uri=f'http://60.251.107.160:8200/DayPartReport')
                     # 可以修改為自己想要的actions
