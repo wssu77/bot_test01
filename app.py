@@ -216,14 +216,14 @@ def handle_message(event):
             user_input_for_search = user_message.replace("查詢", "").strip()
             print(user_input_for_search)
             button_template(event,user_input_for_search) 
-        elif re.search(r"吃.*麼|吃啥", event.message.text):
-            choose_food(event)
-        elif re.search(r"喝.*麼|喝啥", event.message.text):
-            choose_drink(event) 
-        elif '匯率' in event.message.text:
-            search_exchange(event)
-        else:
-            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text="say:" + event.message.text)]))
+        # elif re.search(r"吃.*麼|吃啥", event.message.text):
+        #     choose_food(event)
+        # elif re.search(r"喝.*麼|喝啥", event.message.text):
+        #     choose_drink(event) 
+        # elif '匯率' in event.message.text:
+        #     search_exchange(event)
+        # else:
+        #     line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text="say:" + event.message.text)]))
         
 def choose_food(event):
         with ApiClient(configuration) as api_client:
