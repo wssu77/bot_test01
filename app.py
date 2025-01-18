@@ -218,7 +218,7 @@ def handle_message(event):
         elif '匯率' in event.message.text:
             search_exchange(event)
         else:
-            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=event.message.text)]))
+            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text="say:" + event.message.text)]))
         
 def choose_food(event):
         with ApiClient(configuration) as api_client:
