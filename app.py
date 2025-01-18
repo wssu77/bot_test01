@@ -211,6 +211,8 @@ def handle_message(event):
                 mes_user_id = event.source.user_id
                 print(f"User ID: {mes_user_id}")
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
+        elif event.message.text == 'x':
+            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt"))]))
         elif event.message.text == '查' or event.message.text == '查詢':
             
             # url = "http://60.251.107.160:8200/DayPartReport/text.txt"
