@@ -212,6 +212,19 @@ def handle_message(event):
                 print(f"User ID: {mes_user_id}")
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
         elif event.message.text == '查' or event.message.text == '查詢':
+            
+            # url = "http://60.251.107.160:8200/DayPartReport/text.txt"
+            # try:
+            #     response = requests.get(url)
+            #     response.raise_for_status()
+            #     webtext = response.content.decode('utf-8')
+            #     print(webtext)
+            # except requests.exceptions.RequestException as e:
+            #     print(f"無法讀取檔案：{url}\r\n{e}")
+            # except UnicodeDecodeError as e:
+            #     print(f"編碼解碼錯誤：{url}\r\n{e}")
+                
+            
             user_message = event.message.text
             user_input_for_search = user_message.replace("查詢", "").strip()
             print(user_input_for_search)
@@ -224,7 +237,27 @@ def handle_message(event):
         #     search_exchange(event)
         # else:
         #     line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text="say:" + event.message.text)]))
+
+
+def geturltxt(url):
+    returntxt = "取無資料"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+
+        # 使用二進位內容並手動解碼
+        text_content = response.content.decode('utf-8')
         
+        returntxt = datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\r\n"
+        returntxt += text_content
+        return(returntxt)
+
+    except requests.exceptions.RequestException as e:
+        print(f"無法讀取檔案：{e}")
+    except UnicodeDecodeError as e:
+        print(f"編碼解碼錯誤：{e}")
+
+
 def choose_food(event):
         with ApiClient(configuration) as api_client:
             line_bot_apiv3 = MessagingApi(api_client)
@@ -293,18 +326,6 @@ def search_exchange(event):
             )
 
 def button_template(event,user_input_for_search):
-    url = "http://60.251.107.160:8200/DayPartReport/text.txt"
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        webtext = response.content.decode('utf-8')
-        print(webtext)
-    except requests.exceptions.RequestException as e:
-        print(f"無法讀取檔案：{url}\r\n{e}")
-    except UnicodeDecodeError as e:
-        print(f"編碼解碼錯誤：{url}\r\n{e}")
-        
-        
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
@@ -313,7 +334,7 @@ def button_template(event,user_input_for_search):
                 thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
                 text='請選擇以下連結',
                 actions=[
-                    MessageAction(label='中天-網站流量', text=webtext),
+                    MessageAction(label='中天-網站流量', text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt")),
                     URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
                     URIAction(label='公司外部連結', uri=f'http://60.251.107.160:8200/DayPartReport')
                     # 可以修改為自己想要的actions
