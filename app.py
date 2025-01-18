@@ -126,10 +126,10 @@ def get_all_user_ids():
 def health_check():
     timezone = pytz.timezone('Asia/Taipei')
     now = datetime.now(timezone)
-    target_hour = 10  # 指定小时
+    target_hour = 12  # 指定小时
     print(now.hour)
     
-    if now.hour == target_hour and 10<= now.minute <=19:
+    if now.hour == target_hour and 50<= now.minute <=59:
         send_line_message()
     return 'OK', 200
 
@@ -320,14 +320,23 @@ def button_template(event,user_input_for_search):
             ))
         except LineBotApiError as e:
             print(f"Error: {e}")
+
 def send_line_message():    
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
+        cur_mes = "【數據中心】 \r\n" 
+        cur_mes += datetime.now().strftime('%Y-%m-%d') + " `早午晚報` 資料已更新\r\n"
+        cur_mes += "\r\n"
+        cur_mes += " `公司內部連結` \r\n"
+        cur_mes += " http://10.227.58.88/DayPartReport \r\n"
+        cur_mes += "\r\n"
+        cur_mes += " `公司外部連結` \r\n"
+        cur_mes += " http://60.251.107.160:8200/DayPartReport "
         try:
             line_bot_apiv3.push_message(
                 PushMessageRequest(
                     to=user_id,
-                    messages=[TextMessage(text='Hello! Damn SoB')]
+                    messages=[TextMessage(text=cur_mes)]
                 ))
             print("已發出訊息")
         except Exception as e:
