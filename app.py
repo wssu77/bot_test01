@@ -201,12 +201,17 @@ def handle_message(event):
         line_bot_apiv3 = MessagingApi(api_client)
         print(event)
         source_type = event.source.type  # 可能是 "user" 或 "group"
-        if source_type == "group":
-            group_id = event.source.group_id
-            print(f"Group ID: {group_id}")
-            # 可以將 group_id 保存到資料庫或文件中 
         
-        if re.search(r"吃.*麼|吃啥", event.message.text):
+        if 'id' in event.message.text:
+            if source_type == "group":
+                group_id = event.source.group_id
+                print(f"Group ID: {group_id}")
+                line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"Group ID: {group_id},\r\n" + event.message.text)]))
+            elif source_type == "user":
+                mes_user_id = event.source.user_id
+                print(f"User ID: {mes_user_id}")
+                line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id},\r\n" + event.message.text)]))
+        elif re.search(r"吃.*麼|吃啥", event.message.text):
             choose_food(event)
         elif re.search(r"喝.*麼|喝啥", event.message.text):
             choose_drink(event) 
@@ -218,14 +223,7 @@ def handle_message(event):
         elif '匯率' in event.message.text:
             search_exchange(event)
         else:
-            line_bot_apiv3.reply_message_with_http_info( 
-                                                        ReplyMessageRequest( 
-                                                                            reply_token=event.reply_token, 
-                                                                            messages=[TextMessage(
-                                                                                text=f"Group ID: {group_id},/n" + event.message.text
-                                                                                )]
-                                                                            )
-                                                        )
+            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text="say:" + event.message.text)]))
         
 def choose_food(event):
         with ApiClient(configuration) as api_client:
