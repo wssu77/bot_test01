@@ -212,23 +212,10 @@ def handle_message(event):
                 print(f"User ID: {mes_user_id}")
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
         elif event.message.text == '查' or event.message.text == '查詢':
-            
             user_message = event.message.text
             user_input_for_search = user_message.replace("查詢", "").strip()
-            
-            url = "http://10.227.58.88/DayPartReport/text.txt"
-            try:
-                response = requests.get(url)
-                response.raise_for_status()
-                webtext = response.content.decode('utf-8')
-                print(webtext)
-            except requests.exceptions.RequestException as e:
-                print(f"無法讀取檔案：{e}")
-            except UnicodeDecodeError as e:
-                print(f"編碼解碼錯誤：{e}")
-                
-            print(user_input_for_search + "\r\n" + webtext)
-            button_template(event,user_input_for_search,webtext) 
+            print(user_input_for_search)
+            button_template(event,user_input_for_search) 
         # elif re.search(r"吃.*麼|吃啥", event.message.text):
         #     choose_food(event)
         # elif re.search(r"喝.*麼|喝啥", event.message.text):
@@ -305,7 +292,19 @@ def search_exchange(event):
                 )
             )
 
-def button_template(event,user_input_for_search,webtext):        
+def button_template(event,user_input_for_search):
+    url = "http://60.251.107.160:8200/DayPartReport/text.txt"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        webtext = response.content.decode('utf-8')
+        print(webtext)
+    except requests.exceptions.RequestException as e:
+        print(f"無法讀取檔案：{url}\r\n{e}")
+    except UnicodeDecodeError as e:
+        print(f"編碼解碼錯誤：{url}\r\n{e}")
+        
+        
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
