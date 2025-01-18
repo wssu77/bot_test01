@@ -129,7 +129,7 @@ def health_check():
     target_hour = 12  # 指定小时
     print(now.hour)
     
-    if now.hour == target_hour and 50<= now.minute <=59:
+    if now.hour == target_hour and 50 == now.minute and 50 <= now.second <= 59:
         send_line_message()
     return 'OK', 200
 
