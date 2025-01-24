@@ -340,7 +340,7 @@ def button_template(event,user_input_for_search):
                 thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
                 text='請選擇以下連結',
                 actions=[
-                    MessageAction(label='中天-網站流量', text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt")),
+                    # MessageAction(label='中天-網站流量', text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt")),
                     URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
                     URIAction(label='公司外部連結', uri=f'http://60.251.107.160:8200/DayPartReport')
                     # 可以修改為自己想要的actions
