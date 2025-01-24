@@ -129,8 +129,8 @@ def health_check():
     target_hour = 13  # 指定小时
     print(now.hour)
     
-    if now.hour == target_hour and now.minute == 10 and 50 <= now.second <= 55:
-        send_line_message()
+    # if now.hour == target_hour and now.minute == 10 and 50 <= now.second <= 55:
+    #     send_line_message()
     return 'OK', 200
 
 @app.route("/callback", methods=['POST'])
