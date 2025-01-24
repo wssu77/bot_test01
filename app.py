@@ -234,7 +234,7 @@ def handle_message(event):
 
         elif event.message.text.strip() == '?' :
             info_txt = 'id -> 列出群組ID與個人ID\r\n'
-            info_txt += '1 -> 列出早午晚報查詢面板\r\n'
+            info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
             info_txt += 'ga -> 列出GA4數據\r\n'
             line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=info_txt)]))
         # elif re.search(r"喝.*麼|喝啥", event.message.text):
