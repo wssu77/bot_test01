@@ -211,9 +211,9 @@ def handle_message(event):
                 mes_user_id = event.source.user_id
                 print(f"User ID: {mes_user_id}")
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
-        elif event.message.text.lower() == 'ga':
-            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt"))]))
-        elif event.message.text == '查' or event.message.text == '查詢':
+        elif event.message.text.lower().strip() == 'ga' or event.message.text.lower().strip() == 'g':
+            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=geturltxt("http://60.251.107.160:8200/DayPartReport/ga4data.txt"))]))
+        elif event.message.text.strip() == '1' :
             
             # url = "http://60.251.107.160:8200/DayPartReport/text.txt"
             # try:
@@ -231,8 +231,12 @@ def handle_message(event):
             user_input_for_search = user_message.replace("查詢", "").strip()
             print(user_input_for_search)
             button_template(event,user_input_for_search) 
-        # elif re.search(r"吃.*麼|吃啥", event.message.text):
-        #     choose_food(event)
+
+        elif event.message.text.strip() == '?' :
+            info_txt = 'id -> 列出群組ID與個人ID\r\n'
+            info_txt += '1 -> 列出早午晚報查詢面板\r\n'
+            info_txt += 'ga -> 列出GA4數據\r\n'
+            line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=info_txt)]))
         # elif re.search(r"喝.*麼|喝啥", event.message.text):
         #     choose_drink(event) 
         # elif '匯率' in event.message.text:
@@ -250,9 +254,9 @@ def geturltxt(url):
         # 使用二進位內容並手動解碼
         text_content = response.content.decode('utf-8')
         
-        returntxt = datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\r\n"
-        returntxt += text_content
-        return(returntxt)
+        # returntxt = datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\r\n"  # 世界時間 台灣+8
+        # returntxt += text_content
+        return(text_content)
 
     except requests.exceptions.RequestException as e:
         print(f"無法讀取檔案：{e}")
