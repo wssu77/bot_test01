@@ -202,7 +202,7 @@ def handle_message(event):
         print(event)
         source_type = event.source.type  # 可能是 "user" 或 "group"
         
-        if event.message.text == 'id':
+        if event.message.text.lower().strip() == 'id':
             if source_type == "group":
                 group_id = event.source.group_id
                 mes_user_id = event.source.user_id
