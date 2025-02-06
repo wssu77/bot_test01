@@ -154,13 +154,18 @@ def callback():
 def handle_follow(event):
     user_id = event.source.user_id
     print(user_id)
+    info_txt = '感謝加入此通報系統\r\n'
+    info_txt += '以下為指令清單：\r\n'
+    info_txt += 'id -> 列出群組ID與個人ID\r\n'
+    info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
+    info_txt += 'ga -> 列出GA4數據\r\n'
     #add_user_id_to_json(user_id)
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text='感謝加入好友')]
+                messages=[TextMessage(text=info_txt)]
             )
         )
 
@@ -232,7 +237,7 @@ def handle_message(event):
             print(user_input_for_search)
             button_template(event,user_input_for_search) 
 
-        elif event.message.text.strip() == '?' :
+        elif event.message.text.strip() == '?' or event.message.text.strip() == '？':
             info_txt = 'id -> 列出群組ID與個人ID\r\n'
             info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
             info_txt += 'ga -> 列出GA4數據\r\n'
@@ -335,10 +340,14 @@ def button_template(event,user_input_for_search):
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
+        info_txt = '各報產出時間：\r\n'
+        info_txt += '早報 -> 於07:35後產出\r\n'
+        info_txt += '午報 -> 於12:35後產出\r\n'
+        info_txt += '晚報 -> 於17:35後產出\r\n'
         buttons_template = ButtonsTemplate(
                 title='早午晚報',
                 thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
-                text='請選擇以下連結',
+                text=info_txt,
                 actions=[
                     # MessageAction(label='中天-網站流量', text=geturltxt("http://60.251.107.160:8200/DayPartReport/text.txt")),
                     URIAction(label='公司內部連結', uri=f'http://10.227.58.88/DayPartReport'),
