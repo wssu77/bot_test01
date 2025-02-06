@@ -158,7 +158,7 @@ def handle_follow(event):
     info_txt += '以下為指令清單：\r\n'
     info_txt += 'id -> 列出群組ID與個人ID\r\n'
     info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
-    info_txt += 'ga -> 列出GA4數據\r\n'
+    info_txt += 'ga -> 列出GA4數據'
     #add_user_id_to_json(user_id)
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
@@ -240,7 +240,7 @@ def handle_message(event):
         elif event.message.text.strip() == '?' or event.message.text.strip() == '？':
             info_txt = 'id -> 列出群組ID與個人ID\r\n'
             info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
-            info_txt += 'ga -> 列出GA4數據\r\n'
+            info_txt += 'ga -> 列出GA4數據'
             line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=info_txt)]))
         # elif re.search(r"喝.*麼|喝啥", event.message.text):
         #     choose_drink(event) 
@@ -343,7 +343,7 @@ def button_template(event,user_input_for_search):
         info_txt = '各報產出時間：\r\n'
         info_txt += '早報 -> 於07:35後產出\r\n'
         info_txt += '午報 -> 於12:35後產出\r\n'
-        info_txt += '晚報 -> 於17:35後產出\r\n'
+        info_txt += '晚報 -> 於17:35後產出'
         buttons_template = ButtonsTemplate(
                 title='早午晚報',
                 thumbnail_image_url='https://i.imgur.com/IUJ7QEe.jpeg',
