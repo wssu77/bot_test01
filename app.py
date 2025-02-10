@@ -343,7 +343,7 @@ def track_and_redirect1():
     user_id = request.args.get('user_id')
     # 記錄用戶的點擊行為
     print(f"{user_id} 點擊公司內部連結按鈕!")
-
+    
     # 重定向到最終目標 URL（公司內部連結）
     return redirect('http://10.227.58.88/DayPartReport')
 
@@ -354,19 +354,19 @@ def track_and_redirect2():
     user_id = request.args.get('user_id')
     # 記錄用戶的點擊行為
     print(f"{user_id} 點擊公司外部連結按鈕!")
-
+    
     # 重定向到最終目標 URL（公司外部連結）
     return redirect('http://60.251.107.160:8200/DayPartReport')
-    
+
 def button_template(event,user_input_for_search):
     with ApiClient(configuration) as api_client:
         line_bot_apiv3 = MessagingApi(api_client)
         user_input_for_search = urllib.parse.quote(user_input_for_search)
         
         # 公司內部連結
-        tracking_url1 = f'https://line-bot-fi4w.onrender.com/track_and_redirect1?user_id={event.source.user_id}'
+        tracking_url1 = f'https://bot-test01.onrender.com/track_and_redirect1?user_id={event.source.user_id}'
         # 公司外部連結
-        tracking_url2 = f'https://line-bot-fi4w.onrender.com/track_and_redirect2?user_id={event.source.user_id}'
+        tracking_url2 = f'https://bot-test01.onrender.com/track_and_redirect2?user_id={event.source.user_id}'
 
         info_txt = '各報產出時間：\r\n'
         info_txt += '早報 -> 於07:35後產出\r\n'
