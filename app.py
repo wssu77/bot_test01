@@ -157,7 +157,6 @@ def handle_follow(event):
     info_txt = '感謝加入此通報系統\r\n'
     info_txt += '以下為指令清單：\r\n'
     info_txt += 'id -> 列出群組ID與個人ID\r\n'
-    info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
     info_txt += 'ga -> 列出GA4數據'
     #add_user_id_to_json(user_id)
     with ApiClient(configuration) as api_client:
@@ -218,28 +217,8 @@ def handle_message(event):
                 line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=f"User ID: {mes_user_id}")]))
         elif event.message.text.lower().strip() == 'ga' or event.message.text.lower().strip() == 'g':
             line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=geturltxt("http://60.251.107.160:8200/DayPartReport/ga4data.txt"))]))
-        elif event.message.text.strip() == '1' :
-            
-            # url = "http://60.251.107.160:8200/DayPartReport/text.txt"
-            # try:
-            #     response = requests.get(url)
-            #     response.raise_for_status()
-            #     webtext = response.content.decode('utf-8')
-            #     print(webtext)
-            # except requests.exceptions.RequestException as e:
-            #     print(f"無法讀取檔案：{url}\r\n{e}")
-            # except UnicodeDecodeError as e:
-            #     print(f"編碼解碼錯誤：{url}\r\n{e}")
-                
-            
-            user_message = event.message.text
-            user_input_for_search = user_message.replace("查詢", "").strip()
-            print(user_input_for_search)
-            button_template(event,user_input_for_search) 
-
         elif event.message.text.strip() == '?' or event.message.text.strip() == '？':
             info_txt = 'id -> 列出群組ID與個人ID\r\n'
-            info_txt += ' 1 -> 列出早午晚報查詢面板\r\n'
             info_txt += 'ga -> 列出GA4數據'
             line_bot_apiv3.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=info_txt)]))
         # elif re.search(r"喝.*麼|喝啥", event.message.text):
